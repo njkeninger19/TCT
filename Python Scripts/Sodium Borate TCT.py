@@ -667,7 +667,26 @@ def nCTgPvnC():
     plt.legend()
     plt.show()
 
+
+def exportNCTgPvnC():
+
+    head = ['x', 'R', 'nTgnC', 'nTg']
+    data = []
+    for c in range(0,len(i)):
+        #line = {'x': ix[c], 'R': i[c], 'm': m[c], 'mδ': mδ[c]}
+        line = [ix[c], i[c], nTgnC[c], nTg[c]]
+        c+= 1
+        data.append(line)
+
+    with open("TgConstraintModelNa.csv", 'w', newline = '') as file:
     
+        #writer = csv.DictWriter(file, fieldnames = head)
+        writer = csv.writer(file)
+        
+        writer.writerow(head)
+        writer.writerows(data)
+
+    print(data)
 #########################################################################
 #                            Tg Calculation                             #
 #########################################################################
@@ -773,7 +792,36 @@ def TgPlotVsNoδ():
     plt.legend()
     plt.show()
 
+def exportTg():
 
+    head = ['x', 'R', 'Tg', 'TgnC']
+    data = []
+    for c in range(0,len(i)):
+        #line = {'x': ix[c], 'R': i[c], 'm': m[c], 'mδ': mδ[c]}
+        line = [ix[c], i[c], Tg[c], TgnC[c]]
+        c+= 1
+        data.append(line)
+
+    with open("TgModelNa.csv", 'w', newline = '') as file:
+    
+        #writer = csv.DictWriter(file, fieldnames = head)
+        writer = csv.writer(file)
+        
+        writer.writerow(head)
+        writer.writerows(data)
+
+#    with open("TgExpDataNa.csv", 'w', newline = '') as file:
+#        writer = csv.writer(file)
+#        head = ['x', 'R', 'Chyrssikos et al', ]
+#        expData = []
+#        for a in range(0,len(xChrys)):
+#            line = [xChrys[a], RChrys[a], mChrys[a]]
+#            expData.append(line)
+#            
+#        writer = csv.writer(file)
+#        writer.writerow(head)
+#        writer.writerows(expData)
+    print(data)
 
 #########################################################################
 #                         Fragility Calculation                         #
