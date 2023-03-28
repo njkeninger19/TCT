@@ -842,7 +842,7 @@ T_δ = 850 # likely near or below T_μ my guess is slightly below
 
 
 
-vt = 750 # Escape attemps, fitting parameter fit to first experimental point
+vt = 1000 # Escape attemps, fitting parameter fit to first experimental point
 
 def ΔF_c(T_c):   # Activation free energy for constraint 'c'
     ΔF_c = -k * T_c * np.log(1 - 2**(-1/(vt)))
