@@ -302,11 +302,13 @@ def netConstraintPlot():
 Tg_r = 533 #K , Reference Tg for Lithium Borate Glass System
 n_r = 2.4 # Reference Composition for Borate Glass System
 
-rDataAffatig = [0,.05,.1,.15,.2,.2,.3,.3,.4,.5,.6,.7,.8,.9,1,1.2,1.5]
-TgDataAffatig = [533,570,616,668,708,706,757,762,769,773,756,741,730,714,694,651,602]
+rDataAffatig = [0,.05,.1,.15,.2,.2,.3,.3,.4,.5,.6,.7,.8,.9,1,1.2,1.5
+                ,1.5,1.9,2,2.2,2.4,2.6,2.7,2.75,2.75,2.8,3]
+TgDataAffatig = [533,570,616,668,708,706,757,762,769,773,756,741,730,714,694,651,602
+                 ,604,566,554,547,542,543,544,548,544,546,568]
 
-rDataWhiteBook = [1.5,1.9,2,2.2,2.4,2.6,2.7,2.75,2.75,2.8,3]
-TgDataWhiteBook = [604,566,554,547,542,543,544,548,544,546,568]
+#rDataWhiteBook = [1.5,1.9,2,2.2,2.4,2.6,2.7,2.75,2.75,2.8,3]
+#TgDataWhiteBook = [604,566,554,547,542,543,544,548,544,546,568]
 
 xDataKodama = [.00,.02,.04,.06,.08,.1,.12,.14,.16,.18,.2,.22,.24,.26,.28]
 RDataKodama = []
@@ -347,7 +349,7 @@ def TgPlot():
     plt.plot(i, Tg, label = "Tg Model")
     plt.plot(rDataAffatig, TgDataAffatig, 'o',c = "red", label = "Affatigato et. al.")
     plt.plot(RDataKodama, TgDataKodama, '^',c = "green", label = "Kodama and Kojima")
-    plt.plot(rDataWhiteBook, TgDataWhiteBook, 'o', c = "purple", label = "White Book")
+    #plt.plot(rDataWhiteBook, TgDataWhiteBook, 'o', c = "purple", label = "White Book")
 
     plt.xlim(0, 3)
     plt.ylim(450, 850)
@@ -363,7 +365,7 @@ def TgPlotNoD():
     plt.plot(i, TgNoD, label = "Takeda Model")
     plt.plot(rDataAffatig, TgDataAffatig, 'o',c = "red", label = "Affatigato et. al.")
     plt.plot(RDataKodama, TgDataKodama, '^',c = "green", label = "Kodama and Kojima")
-    plt.plot(rDataWhiteBook, TgDataWhiteBook, 'o', c = "purple", label = "White Book")
+    #plt.plot(rDataWhiteBook, TgDataWhiteBook, 'o', c = "purple", label = "White Book")
     
     plt.xlim(0, 3)
     plt.ylim(450, 850)
@@ -381,7 +383,7 @@ def TgPlotVsNoδ():
     plt.plot(i, TgMauro, label = "Mauro-Gupta Model")
     plt.plot(rDataAffatig, TgDataAffatig, 'o',c = "red", label = "Affatigato et. al.")
     plt.plot(RDataKodama, TgDataKodama, '^',c = "green", label = "Kodama and Kojima")
-    plt.plot(rDataWhiteBook, TgDataWhiteBook, 'o', c = "purple", label = "White Book")
+    #plt.plot(rDataWhiteBook, TgDataWhiteBook, 'o', c = "purple", label = "White Book")
 
     plt.xlim(0, 3)
     plt.ylim(450, 850)
@@ -392,7 +394,22 @@ def TgPlotVsNoδ():
     plt.legend()
     plt.show()
 
+def exportTg():
 
+    head = ['x', 'R', 'Tg', 'Takeda Model', 'Mauro-Gupta Model']
+    data = []
+    for c in range(0,len(i)):
+        #line = {'x': ix[c], 'R': i[c], 'm': m[c], 'mδ': mδ[c]}
+        line = [ix[c], i[c], Tg[c], TgNoD[c], TgMauro[c]]
+        data.append(line)
+
+    with open("TgModelLi.csv", 'w', newline = '') as file:
+    
+        #writer = csv.DictWriter(file, fieldnames = head)
+        writer = csv.writer(file)
+        
+        writer.writerow(head)
+        writer.writerows(data)
 
 #########################################################################
 #                         Fragility Calculation                         #
@@ -413,7 +430,7 @@ T_δ = 850 # likely near or below T_μ my guess is slightly below
 
 
 
-vt = 750 # Escape attemps, fitting parameter fit to first experimental point
+vt = 1000 # Escape attemps, fitting parameter fit to first experimental point
 
 def ΔF_c(T_c):   # Activation free energy for constraint 'c'
     ΔF_c = -k * T_c * np.log(1 - 2**(-1/(vt)))
